@@ -56,7 +56,6 @@ const data = [
   },
 ];
 
-
 //create box for each image
 const createBox = (item) => {
   const box = document.createElement('div');
@@ -65,20 +64,20 @@ const createBox = (item) => {
   box.innerHTML = `
   <img src="${img}" alt= "${text}"/>
   <p class="info">${text}</p>
-  `
+  `;
+
   //speech event
   box.addEventListener('click', () => {
     setTextMessage(text);
     speakText();
-
     //add active effect
     box.classList.add('active');
     setTimeout(() => {
       box.classList.remove('active')
-    }, 800)
-  } )
-  main.appendChild(box)
-}
+    }, 800);
+  });
+  main.appendChild(box);
+};
 data.forEach(createBox);
 
 //init speech synth.
@@ -91,10 +90,11 @@ const getVoices = () => {
   voices.forEach(voice => {
     const option = document.createElement('option');
     option.value = voice.name;
-    option.innerText = `${voice.name} ${voice.lang}`
-    voicesSelect.appendChild(option)
-  })
-}
+    option.innerText = `${voice.name} ${voice.lang}`;
+    voicesSelect.appendChild(option);
+  });
+};
+
 //set the text
 const setTextMessage = (text) => {
   message.text = text;
@@ -103,13 +103,12 @@ const setTextMessage = (text) => {
 //speak the text 
 const speakText = () => {
   speechSynthesis.speak(message);
-}
+};
 
 //change voice
 const setVoice = (e) => {
- message.voice = voices.find(voice => voice.name === e.target.value)
-}
-
+  message.voice = voices.find(voice => voice.name === e.target.value);
+};
 
 //voices change
 speechSynthesis.addEventListener('voiceschanged', getVoices);
@@ -128,6 +127,6 @@ readBtn.addEventListener('click', () => {
   setTextMessage(textArea.value);
   speakText();
 
-})
+});
 
 getVoices();
